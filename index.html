@@ -1,18 +1,25 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Website Sederhana Saya</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
+// Memeriksa apakah wallet Solana (misalnya Phantom) sudah terinstal
+if ("solana" in window) {
+    const provider = window.solana;
+
+    // Tambahkan event listener untuk tombol "Connect Wallet"
+    document.getElementById("connectButton").addEventListener("click", async () => {
+        try {
+            // Minta koneksi ke wallet
+            const response = await provider.connect();
+            
+            // Tampilkan alamat publik pengguna
+            console.log("Wallet terhubung:", response.publicKey.toString());
+            alert("Wallet terhubung! Alamat Anda: " + response.publicKey.toString());
+
+        } catch (err) {
+            // Tangani error jika pengguna menolak koneksi
+            console.error("Koneksi ditolak:", err);
+            alert("Koneksi ditolak.");
         }
-    </style>
-</head>
-<body>
-    <h1>Halo Dunia!</h1>
-    <p>Selamat datang di website pertama saya yang dibuat dengan GitHub Pages.</p>
-</body>
-</html>
+    });
+
+} else {
+    // Beri tahu pengguna untuk menginstal wallet Solana
+    alert("Silakan instal ekstensi wallet Solana, seperti Phantom!");
+}
